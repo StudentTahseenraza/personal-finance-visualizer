@@ -1,26 +1,56 @@
+/* src/app/globals.css */
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #2DD4BF; /* Teal for accents */
+  --secondary: #A78BFA; /* Purple for gradients */
+  --accent: #FCD34D; /* Yellow for highlights */
+  --background: #F3F4F6; /* Light gray background */
+  --card-bg: rgba(255, 255, 255, 0.2); /* Glassmorphism base */
+  --gradient: linear-gradient(135deg, #2DD4BF, #A78BFA, #FCD34D); /* Vibrant gradient */
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(10px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="dark"] {
+  --primary: #67E8F9; /* Light teal */
+  --secondary: #C4B5FD; /* Light purple */
+  --accent: #FBBF24; /* Light yellow */
+  --background: #111827; /* Dark background */
+  --card-bg: rgba(31, 41, 55, 0.2);
+  --gradient: linear-gradient(135deg, #67E8F9, #C4B5FD, #FBBF24);
+  --glass-bg: rgba(31, 41, 55, 0.15);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-[var(--background)] transition-colors duration-300;
+}
+
+.container {
+  @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply bg-[var(--card-bg)] backdrop-blur-[var(--glass-blur)] border border-white/20 rounded-2xl p-6 shadow-[var(--shadow)] transition-all duration-300 hover:shadow-lg;
+}
+
+.glass-card {
+  @apply bg-[var(--glass-bg)] backdrop-blur-[var(--glass-blur)] border border-white/10 rounded-2xl p-6;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-[var(--primary)] via-[var(--secondary)] to-[var(--accent)] text-white;
+}
+
+.btn-primary {
+  @apply bg-[var(--primary)] text-white font-medium rounded-lg px-4 py-2 hover:bg-[var(--accent)] transition-all duration-200;
+}
+
+.form-input {
+  @apply border-gray-300 bg-white/50 backdrop-blur-sm rounded-lg focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-all duration-200;
 }
