@@ -17,10 +17,10 @@ const categories = ['Food', 'Transport', 'Utilities', 'Entertainment', 'Others']
 interface Transaction {
   id: string;
   amount: number;
-  date: string;
+  date: string; // ISO string
   description: string;
   category: string;
-  createdAt?: string;
+  createdAt?: string; // ISO string
 }
 
 interface Budget {
@@ -28,7 +28,7 @@ interface Budget {
   category: string;
   amount: number;
   month: string;
-  createdAt?: string;
+  createdAt?: string; // ISO string
 }
 
 interface ClientHomeProps {
