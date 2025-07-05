@@ -187,9 +187,9 @@ export default function ClientHome({ transactions: initialTransactions, budgets:
               <SelectTrigger className="w-full form-input">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
-              <SelectContent className="z-50 bg-white border border-gray-200 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-900">
+              <SelectContent className="z-50 bg-white border border-gray-200 rounded-md shadow-lg dark:bg-gray-400 dark:border-gray-200">
                 {categories.map((cat) => (
-                  <SelectItem key={cat} value={cat} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <SelectItem key={cat} value={cat} className="hover:bg-gray-100 dark:hover:bg-gray-300">
                     {cat}
                   </SelectItem>
                 ))}

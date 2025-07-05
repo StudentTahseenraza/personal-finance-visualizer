@@ -1,8 +1,8 @@
 // src/app/components/TransactionList.tsx
 'use client';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
-import { Edit, Trash2 } from 'lucide-react';
+import { Trash2, Edit } from 'lucide-react';
 
 interface Transaction {
   id: string;
@@ -21,52 +21,54 @@ interface TransactionListProps {
 
 export default function TransactionList({ transactions, onEdit, onDelete }: TransactionListProps) {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left">
+    <AnimatePresence>
+      <motion.table {...{className: "w-full text-left border-collapse"}}>
         <thead>
           <tr className="gradient-bg">
-            <th className="p-4 font-semibold">Date</th>
-            <th className="p-4 font-semibold">Description</th>
-            <th className="p-4 font-semibold">Category</th>
-            <th className="p-4 font-semibold">Amount</th>
-            <th className="p-4 font-semibold">Actions</th>
+            <th className="p-2 border-b">Date</th>
+            <th className="p-2 border-b">Description</th>
+            <th className="p-2 border-b">Category</th>
+            <th className="p-2 border-b">Amount ($)</th>
+            <th className="p-2 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction, index) => (
+          {transactions.map((transaction) => (
             <motion.tr
-              key={transaction.id} // Use id instead of _id
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              {...{className:"border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-100"}}
+              key={transaction.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              {...{className:"border-b hover:bg-gray-50 dark:hover:bg-gray-200"}}
             >
-              <td className="p-4">{new Date(transaction.date).toLocaleDateString()}</td>
-              <td className="p-4">{transaction.description}</td>
-              <td className="p-4">{transaction.category}</td>
-              <td className="p-4">${transaction.amount.toFixed(2)}</td>
-              <td className="flex p-4 space-x-2">
+              <td className="p-2">
+                {new Date(transaction.date).toISOString().split('T')[0]} {/* Consistent ISO date */}
+              </td>
+              <td className="p-2">{transaction.description}</td>
+              <td className="p-2">{transaction.category}</td>
+              <td className="p-2">${transaction.amount.toFixed(2)}</td>
+              <td className="flex p-2 space-x-2">
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="icon"
                   onClick={() => onEdit(transaction)}
-                  className="hover:bg-[var(--primary)] hover:text-white"
                 >
                   <Edit className="w-4 h-4" />
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="icon"
                   onClick={() => onDelete(transaction.id)}
-                  className="hover:bg-red-500 hover:text-white"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-4 h-4 text-red-500" />
                 </Button>
               </td>
             </motion.tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </motion.table>
+    </AnimatePresence>
   );
 }
+
+
